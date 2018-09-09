@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.0)
+    awesome_print (1.8.0)
     byebug (10.0.2)
     coderay (1.1.2)
     jaro_winkler (1.5.1)
@@ -38,6 +39,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
   pry
   pry-byebug
   pry-doc
