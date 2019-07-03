@@ -1,0 +1,11 @@
+html
+  head
+    title= "#@title — Clever Mule"
+    link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"
+  body
+    main.section
+      .container== yield
+    footer.footer
+      p.has-text-centered
+        span Dataset from&nbsp;
+        a href=DATASET_ATTRIBUTION Deutsche Bahn.

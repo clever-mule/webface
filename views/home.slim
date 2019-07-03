@@ -1,0 +1,14 @@
+- headers = @data.first.headers
+
+h1.title First 100 rows of the dataset
+
+table.table
+  thead
+    tr
+      - headers.each do |hdr|
+        th= hdr
+  tbody
+    - @data.each do |row|
+      tr
+        - headers.each do |hdr|
+          td= row[hdr]
