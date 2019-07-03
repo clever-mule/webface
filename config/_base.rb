@@ -1,1 +1,0 @@
-Sequel.extension :migration

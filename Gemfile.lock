@@ -10,7 +10,6 @@ GEM
     parallel (1.17.0)
     parser (2.6.3.0)
       ast (~> 2.4.0)
-    pg (1.1.4)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -21,7 +20,6 @@ GEM
       pry (~> 0.11)
       yard (~> 0.9.11)
     rainbow (3.0.0)
-    rake (12.3.2)
     rubocop (0.72.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
@@ -30,7 +28,6 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
     ruby-progressbar (1.10.1)
-    sequel (5.22.0)
     unicode-display_width (1.6.0)
     yard (0.9.20)
 
@@ -39,13 +36,10 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
-  pg
   pry
   pry-byebug
   pry-doc
-  rake
   rubocop
-  sequel
 
 BUNDLED WITH
    1.17.3
