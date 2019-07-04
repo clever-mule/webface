@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'csv'
+require 'forwardable'
 
 require 'bundler/setup'
 Bundler.require(:default, :development)
@@ -13,6 +14,9 @@ REPORT_TYPES = {
   count_by_bundesland_category: 'Number of stations per Bundesland and category',
   count_by_bundesland_sp: 'Number of stations per Bundesland and service provider'
 }.freeze
+
+EXCHANGE_NAME = 'clever-mule:webface-entry'
+QUEUE_NAME = 'clever-mule:report-tasks'
 
 class DataReader
   def sample
@@ -38,6 +42,32 @@ class DataReader
   end
 end
 
+class BunnySender
+  attr_reader :connection, :channel, :exchange, :queue
+  extend Forwardable
+
+  def_delegator :@exchange, :publish
+
+  def initialize
+    @connection = Bunny.new
+  end
+
+  def start!
+    @connection.start
+
+    @channel = @connection.create_channel
+    @exchange = @channel.direct(EXCHANGE_NAME)
+    @queue = @channel.queue(QUEUE_NAME)
+    @queue.bind(EXCHANGE_NAME)
+
+    self
+  end
+
+  def stop!
+    @connection.close
+  end
+end
+
 class WebfaceApp < Sinatra::Application
   set :public_folder, File.join(File.dirname(__FILE__), 'static')
 
@@ -57,7 +87,11 @@ class WebfaceApp < Sinatra::Application
   end
 
   post '/send_report' do
-    ap params
+    @bunny_sender = BunnySender.new
+    @bunny_sender.start!
+    @bunny_sender.publish(params[:data].to_h.to_json,
+                          content_type: 'application/json',
+                          headers: { 'X-Report-Type' => params[:report_type] })
     redirect '/'
   end
 end

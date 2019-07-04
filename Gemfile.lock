@@ -1,8 +1,11 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    amq-protocol (2.3.0)
     ast (2.4.0)
     awesome_print (1.8.0)
+    bunny (2.14.2)
+      amq-protocol (~> 2.3, >= 2.3.0)
     byebug (11.0.1)
     coderay (1.1.2)
     jaro_winkler (1.5.3)
@@ -50,6 +53,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
+  bunny
   pry
   pry-byebug
   pry-doc
