@@ -8,17 +8,24 @@ form method="post"
           - REPORT_TYPES.each do |type, name|
             option value=type =name
 
-  fieldset.field#count_by_bundesland_category.is-hidden disabled=true
-    .field
+  fieldset.columns
+    .field.column.is-narrow
       label.label Bundesland
       .control
-        .select.is-multiple
-          select multiple=true name="data[bundesland]"
+        .select.is-fullwidth.is-multiple
+          select multiple=true name="data[bundeslands][]"
             - @data_reader.all_bundeslands.each do |l|
               option value=l =l
+      .help Selecting no bundeslands is equivalent to selecting them all
+    .field.column.is-narrow
+      label.label Service provider
+      .control
+        .select.is-fullwidth.is-multiple
+          select multiple=true name="data[service_providers][]"
+            - @data_reader.all_service_providers.each do |l|
+              option value=l =l
+      .help Selecting no service providers is equivalent to selecting them all
+
 
   .field
     button.button.is-link type="submit" Send report
-
-
-script src="/send_report_form.js"

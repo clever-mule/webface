@@ -11,6 +11,7 @@ DATASET_PATH = File.join(File.dirname(__FILE__),
                          'DBSuS-Uebersicht_Bahnhoefe-Stand2019-03.csv')
 REPORT_TYPES = {
   count_by_bundesland_category: 'Number of stations per Bundesland and category',
+  count_by_bundesland_sp: 'Number of stations per Bundesland and service provider'
 }.freeze
 
 class DataReader
@@ -19,10 +20,18 @@ class DataReader
   end
 
   def all_bundeslands
-    csv_base.map { |e| e['Bundesland'] }.sort.uniq
+    all_categories 'Bundesland'
+  end
+
+  def all_service_providers
+    all_categories 'Aufgabenträger'
   end
 
   private
+
+  def all_categories(name)
+    csv_base.map { |e| e[name] }.sort.uniq
+  end
 
   def csv_base
     CSV.foreach(DATASET_PATH, col_sep: ';', headers: true)
