@@ -1,0 +1,24 @@
+form method="post"
+  .field
+    label.label Report type
+    .control
+      .select
+        select#report_type name="report_type" required=true
+          option value="" Select report type
+          - REPORT_TYPES.each do |type, name|
+            option value=type =name
+
+  fieldset.field#count_by_bundesland_category.is-hidden disabled=true
+    .field
+      label.label Bundesland
+      .control
+        .select.is-multiple
+          select multiple=true name="data[bundesland]"
+            - @data_reader.all_bundeslands.each do |l|
+              option value=l =l
+
+  .field
+    button.button.is-link type="submit" Send report
+
+
+script src="/send_report_form.js"
