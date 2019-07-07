@@ -91,7 +91,8 @@ class WebfaceApp < Sinatra::Application
     @bunny_sender.start!
     @bunny_sender.publish(params[:data].to_h.to_json,
                           content_type: 'application/json',
-                          headers: { 'X-Report-Type' => params[:report_type] })
+                          headers: { 'x-worker-type' => params[:report_type],
+                                     'x-created-at' => Time.now.strftime('%Y%m%d%H%M%S') })
     redirect '/'
   end
 end
